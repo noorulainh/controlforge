@@ -1,0 +1,65 @@
+<svg width="1440" height="900" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1440" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8FAFC"/>
+      <stop offset="1" stop-color="#EEF2FF"/>
+    </linearGradient>
+    <linearGradient id="topbar" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0EA5E9"/>
+      <stop offset="1" stop-color="#0284C7"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="1440" height="900" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <rect width="1440" height="900" fill="url(#bg)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="72" y="56" width="1296" height="788" rx="18" fill="#FFFFFF"/>
+  </g>
+
+  <rect x="72" y="56" width="1296" height="76" rx="18" fill="url(#topbar)"/>
+  <rect x="72" y="114" width="1296" height="18" fill="url(#topbar)"/>
+  <circle cx="112" cy="94" r="9" fill="#E2E8F0"/>
+  <circle cx="140" cy="94" r="9" fill="#BFDBFE"/>
+  <circle cx="168" cy="94" r="9" fill="#93C5FD"/>
+  <text x="210" y="100" fill="#FFFFFF" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">TrustStack AI Assurance Hub</text>
+  <text x="1178" y="100" fill="#E0F2FE" font-family="Segoe UI, Arial, sans-serif" font-size="14">localhost:3000</text>
+
+  <rect x="120" y="176" width="584" height="620" rx="14" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <rect x="736" y="176" width="584" height="620" rx="14" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+
+  <text x="152" y="224" fill="#0F172A" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="700">Projects</text>
+  <rect x="560" y="197" width="112" height="42" rx="10" fill="#0EA5E9"/>
+  <text x="599" y="224" fill="#FFFFFF" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700">New</text>
+  <text x="152" y="256" fill="#475569" font-family="Segoe UI, Arial, sans-serif" font-size="15">File-based workspaces under workspaces/</text>
+
+  <line x1="152" y1="284" x2="672" y2="284" stroke="#E2E8F0" stroke-width="2"/>
+  <rect x="152" y="314" width="520" height="128" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="2"/>
+  <text x="180" y="358" fill="#0F172A" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">Claims Approval Assistant</text>
+  <text x="180" y="390" fill="#64748B" font-family="Segoe UI, Arial, sans-serif" font-size="15">Updated: 2026-02-14T18:03:44Z</text>
+
+  <rect x="152" y="462" width="520" height="128" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="2"/>
+  <text x="180" y="506" fill="#0F172A" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">Fraud Detection Copilot</text>
+  <text x="180" y="538" fill="#64748B" font-family="Segoe UI, Arial, sans-serif" font-size="15">Updated: 2026-02-13T09:25:12Z</text>
+
+  <text x="768" y="224" fill="#0F172A" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="700">Taxonomy</text>
+  <text x="768" y="256" fill="#475569" font-family="Segoe UI, Arial, sans-serif" font-size="15">Industries → segments → use cases (config-driven)</text>
+  <line x1="768" y1="284" x2="1288" y2="284" stroke="#E2E8F0" stroke-width="2"/>
+
+  <rect x="768" y="314" width="520" height="128" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="2"/>
+  <text x="796" y="358" fill="#0F172A" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">Healthcare</text>
+  <text x="796" y="390" fill="#64748B" font-family="Segoe UI, Arial, sans-serif" font-size="15">Claims automation and clinical support</text>
+  <rect x="1128" y="338" width="132" height="36" rx="18" fill="#F1F5F9" stroke="#CBD5E1"/>
+  <text x="1156" y="362" fill="#334155" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700">1 segment</text>
+
+  <rect x="768" y="462" width="520" height="128" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="2"/>
+  <text x="796" y="506" fill="#0F172A" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">Finance</text>
+  <text x="796" y="538" fill="#64748B" font-family="Segoe UI, Arial, sans-serif" font-size="15">Banking risk, AML, and fraud workloads</text>
+  <rect x="1128" y="486" width="132" height="36" rx="18" fill="#F1F5F9" stroke="#CBD5E1"/>
+  <text x="1156" y="510" fill="#334155" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700">1 segment</text>
+
+  <rect x="768" y="660" width="520" height="88" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="2"/>
+  <text x="796" y="708" fill="#475569" font-family="Segoe UI, Arial, sans-serif" font-size="15">Add industries/use-cases by dropping YAML under registry/taxonomy/</text>
+</svg>

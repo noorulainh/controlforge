@@ -5,6 +5,9 @@
 
 TrustStack AI GRC turns AI regulations and security frameworks into a **practical, trackable checklist** for a specific AI use case — and helps you **store evidence** and produce an **audit-ready report**.
 
+## Application Screenshot
+![TrustStack AI Assurance Hub screenshot](docs/images/application-screenshot.svg)
+
 ## What you tell it
 - Industry + segment + use case (config-driven taxonomy)
 - Scoping answers (questionnaire defined by the use case)
@@ -39,6 +42,7 @@ TrustStack AI GRC turns AI regulations and security frameworks into a **practica
 ## Quickstart (dev)
 
 ### 1) API (FastAPI)
+#### macOS / Linux
 ```bash
 cd apps/api
 python -m venv .venv && source .venv/bin/activate
@@ -48,8 +52,27 @@ export TRUSTSTACK_WORKSPACE_ROOT=../../workspaces
 uvicorn truststack_grc.main:app --reload --port 8000
 ```
 
+#### Windows (PowerShell)
+```powershell
+cd apps/api
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+$env:TRUSTSTACK_CONFIG_ROOT = "../../registry"
+$env:TRUSTSTACK_WORKSPACE_ROOT = "../../workspaces"
+uvicorn truststack_grc.main:app --reload --port 8000
+```
+
 ### 2) Web (Next.js)
+#### macOS / Linux
 ```bash
+cd apps/web
+npm install
+npm run dev
+```
+
+#### Windows (PowerShell)
+```powershell
 cd apps/web
 npm install
 npm run dev
