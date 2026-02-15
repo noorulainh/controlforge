@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { fetchChecklist, fetchProject, patchChecklistItem, reportUrl, uploadEvidence } from "../../../lib/api";
+import { deleteProject, fetchChecklist, fetchProject, patchChecklistItem, patchProject, reportUrl, uploadEvidence } from "../../../lib/api";
 
 const STATUS = ["not_started", "in_progress", "implemented", "not_applicable", "risk_accepted"];
 
@@ -21,6 +21,10 @@ export default function ProjectPage({ params }: { params: { projectId: string } 
   const [checklist, setChecklist] = useState<any | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
+  const [editName, setEditName] = useState("");
+  const [editDescription, setEditDescription] = useState("");
+  const [savingProject, setSavingProject] = useState(false);
+  const [deletingProject, setDeletingProject] = useState(false);
 
   async function refresh() {
     setErr(null);
@@ -35,6 +39,13 @@ export default function ProjectPage({ params }: { params: { projectId: string } 
 
   useEffect(() => { refresh(); }, [projectId]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    const p = project?.project;
+    if (!p) return;
+    setEditName(p.name || "");
+    setEditDescription(p.description || "");
+  }, [project?.project?.id, project?.project?.updated_at]);
+
   const counts = checklist?.counts || {};
   const items: any[] = checklist?.items || [];
 
@@ -43,6 +54,44 @@ export default function ProjectPage({ params }: { params: { projectId: string } 
     const implemented = (counts.by_status?.implemented) || items.filter(i => i.status === "implemented").length;
     return total ? Math.round((implemented / total) * 100) : 0;
   }, [counts, items]);
+
+  const currentName = project?.project?.name || "";
+  const currentDescription = project?.project?.description || "";
+  const canSaveProject =
+    Boolean(editName.trim()) &&
+    (editName.trim() !== currentName || editDescription !== currentDescription);
+
+  async function onSaveProject() {
+    setErr(null);
+    setSavingProject(true);
+    try {
+      await patchProject(projectId, {
+        name: editName.trim(),
+        description: editDescription.trim() ? editDescription.trim() : null,
+      });
+      await refresh();
+    } catch (e: any) {
+      setErr(e.message || String(e));
+    } finally {
+      setSavingProject(false);
+    }
+  }
+
+  async function onDeleteProject() {
+    const nameForPrompt = project?.project?.name || projectId;
+    if (!window.confirm(`Delete project "${nameForPrompt}"? This action cannot be undone.`)) {
+      return;
+    }
+    setErr(null);
+    setDeletingProject(true);
+    try {
+      await deleteProject(projectId);
+      window.location.href = "/getting-started";
+    } catch (e: any) {
+      setErr(e.message || String(e));
+      setDeletingProject(false);
+    }
+  }
 
   async function updateItem(itemId: string, patch: any) {
     setBusy(itemId);
@@ -79,9 +128,9 @@ export default function ProjectPage({ params }: { params: { projectId: string } 
             </div>
           </div>
           <div className="hstack">
-            <a className="btn" href={reportUrl(projectId, "html")} target="_blank">View Report (HTML)</a>
-            <a className="btn" href={reportUrl(projectId, "csv")} target="_blank">Export CSV</a>
-            <a className="btn" href={reportUrl(projectId, "pdf")} target="_blank">Export PDF</a>
+            <a className="btn" href={reportUrl(projectId, "html")} target="_blank" rel="noreferrer">View Report (HTML)</a>
+            <a className="btn" href={reportUrl(projectId, "csv")} target="_blank" rel="noreferrer">Export CSV</a>
+            <a className="btn" href={reportUrl(projectId, "pdf")} target="_blank" rel="noreferrer">Export PDF</a>
           </div>
         </div>
 
@@ -91,6 +140,48 @@ export default function ProjectPage({ params }: { params: { projectId: string } 
             <div className="small">{err}</div>
           </div>
         )}
+
+        <hr />
+        <div className="grid grid2" style={{marginBottom: 12}}>
+          <div>
+            <label>Project name</label>
+            <input
+              value={editName}
+              onChange={(e) => setEditName(e.target.value)}
+              disabled={savingProject || deletingProject}
+            />
+          </div>
+          <div>
+            <label>Description</label>
+            <textarea
+              rows={2}
+              value={editDescription}
+              onChange={(e) => setEditDescription(e.target.value)}
+              disabled={savingProject || deletingProject}
+            />
+          </div>
+        </div>
+        <div className="hstack" style={{justifyContent: "space-between"}}>
+          <div className="small">
+            Rename project or update description. Delete permanently removes project files and evidence.
+          </div>
+          <div className="hstack">
+            <button
+              className={"btn " + (canSaveProject ? "btnPrimary" : "")}
+              disabled={!canSaveProject || savingProject || deletingProject}
+              onClick={onSaveProject}
+            >
+              {savingProject ? "Saving..." : "Save Project"}
+            </button>
+            <button
+              className="btn btnDanger"
+              disabled={savingProject || deletingProject}
+              onClick={onDeleteProject}
+            >
+              {deletingProject ? "Deleting..." : "Delete Project"}
+            </button>
+          </div>
+        </div>
 
         <hr />
         <div className="hstack">

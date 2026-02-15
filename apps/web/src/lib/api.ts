@@ -32,6 +32,20 @@ export async function fetchProject(projectId: string) {
   return j<any>(await fetch(`${API_BASE}/api/projects/${projectId}`, { cache: "no-store" }));
 }
 
+export async function patchProject(projectId: string, patch: { name?: string; description?: string | null }) {
+  return j<any>(await fetch(`${API_BASE}/api/projects/${projectId}`, {
+    method: "PATCH",
+    headers: {"content-type":"application/json"},
+    body: JSON.stringify(patch),
+  }));
+}
+
+export async function deleteProject(projectId: string) {
+  return j<any>(await fetch(`${API_BASE}/api/projects/${projectId}`, {
+    method: "DELETE",
+  }));
+}
+
 export async function fetchChecklist(projectId: string) {
   return j<any>(await fetch(`${API_BASE}/api/projects/${projectId}/checklist`, { cache: "no-store" }));
 }

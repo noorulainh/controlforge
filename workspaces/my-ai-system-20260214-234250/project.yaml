@@ -1,0 +1,79 @@
+project:
+  id: my-ai-system-20260214-234250
+  name: My AI System
+  description: null
+  created_at: '2026-02-14T23:42:50.268752+00:00'
+  updated_at: '2026-02-14T23:42:50.268758+00:00'
+inputs:
+  industry_id: healthcare
+  segment_id: payer
+  use_case_id: claims-approval-assistant
+  selected_packs:
+  - domain: governance
+    pack_id: nist-ai-rmf
+    version: '1.0'
+  - domain: governance
+    pack_id: eu-ai-act
+    version: 2024-1689
+  - domain: safety
+    pack_id: model-documentation
+    version: '1.0'
+  - domain: security
+    pack_id: owasp-llm-top10
+    version: '1.1'
+  scope_answers: &id002
+    materially_influences_decisions: true
+    processes_phi: true
+    uses_tools: false
+    internet_exposed: true
+    jurisdictions: &id001
+    - US
+    - EU
+    - UK
+    - CA
+    - SG
+    model_sourcing: fine_tuned
+context:
+  system:
+    name: My AI System
+  industry:
+    id: healthcare
+  segment:
+    id: payer
+  use_case:
+    id: claims-approval-assistant
+  tags:
+  - llm
+  - decision_support
+  - healthcare
+  - payer
+  - phi
+  - pii
+  - rag
+  pattern:
+    rag: true
+    agentic: false
+    chatbot: false
+    classifier: false
+    decision_support: true
+  data:
+    phi: true
+    pii: true
+    pci: false
+  deployment:
+    internet_exposed: true
+    customer_facing: false
+  jurisdiction:
+    list: *id001
+    eu: true
+    us: true
+    uk: true
+  model:
+    sourcing: fine_tuned
+    fine_tuned: true
+  scope: *id002
+generated:
+  generator_version: 0.1.0
+  taxonomy_hash: 9538004338626b800551ab7d87dee4a65d0171737e477a58de90d405cb2dedef
+  packs_hash: a9453e77bde3230dddb008702d1e32c3334b7a9459df69d1bc6e365a5cc58ffc
+  checklist_hash: 65b65a46e6c5ac15f1996b052acc08730faf1f863fecb6943dff6d1185046801

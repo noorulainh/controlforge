@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+import shutil
 from typing import Any
 
 from truststack_grc.config import get_settings
@@ -60,6 +61,13 @@ class FileSystemStorage:
 
     def write_checklist(self, project_id: str, data: dict[str, Any]) -> None:
         write_yaml(self.project_dir(project_id) / "checklist.yaml", data)
+
+    def delete_project(self, project_id: str) -> bool:
+        proj_dir = self.project_dir(project_id)
+        if not proj_dir.exists() or not proj_dir.is_dir():
+            return False
+        shutil.rmtree(proj_dir)
+        return True
 
     def audit_path(self, project_id: str) -> Path:
         return self.project_dir(project_id) / "auditlog.ndjson"

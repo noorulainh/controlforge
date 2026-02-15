@@ -126,6 +126,38 @@ class ProjectService:
         self.storage.append_audit(project_id, "checklist.item.updated", actor, {"item_id": item_id, "before": before, "after": after})
         return found
 
+    def update_project(self, project_id: str, patch: dict[str, Any], actor: str) -> dict[str, Any] | None:
+        proj = self.storage.read_project(project_id)
+        if not proj:
+            return None
+
+        editable_fields = {"name", "description"}
+        before = {k: proj.get("project", {}).get(k) for k in editable_fields}
+        for key in editable_fields:
+            if key in patch:
+                proj["project"][key] = patch[key]
+        proj["project"]["updated_at"] = utc_now()
+        after = {k: proj.get("project", {}).get(k) for k in editable_fields}
+
+        self.storage.write_project(project_id, proj)
+        self.storage.append_audit(project_id, "project.updated", actor, {"before": before, "after": after})
+        return proj
+
+    def delete_project(self, project_id: str, actor: str) -> dict[str, Any] | None:
+        proj = self.storage.read_project(project_id)
+        if not proj:
+            return None
+        summary = {
+            "project_id": project_id,
+            "name": proj.get("project", {}).get("name"),
+            "deleted_by": actor,
+            "deleted_at": utc_now(),
+        }
+        deleted = self.storage.delete_project(project_id)
+        if not deleted:
+            return None
+        return summary
+
     async def add_evidence(self, project_id: str, item_id: str, upload_file, actor: str) -> dict[str, Any] | None:
         proj = self.storage.read_project(project_id)
         checklist = self.storage.read_checklist(project_id)

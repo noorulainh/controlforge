@@ -1,0 +1,73 @@
+project_id: my-ai-system-20260215-021932
+generated_at: '2026-02-15T02:19:32.988162+00:00'
+items:
+- item_id: 1404653f95e0f4be
+  merge_key: CTRL-SAF-0001
+  canonical_id: CTRL-SAF-0001
+  title: Maintain a System Card for the AI system
+  objective: Capture intended use, capabilities, limitations, safety mitigations,
+    and monitoring.
+  severity: medium
+  category: Documentation
+  domain: safety
+  pack_refs:
+  - domain: safety
+    pack_id: model-documentation
+    version: '1.0'
+    control_id: DOC01
+    source:
+      name: Community
+      reference: Documentation best practices for AI systems (model/system/dataset
+        docs)
+      url: null
+    pack_hash: a2c9a235f61e9c908302b859a46d753d717f6edc351b4e6c05c21b4f6c821428
+  why_applies: 'Triggered by: exists(system.name)'
+  evidence_required:
+  - type: document
+    name: System Card (approved)
+  test_procedures:
+  - Confirm system card includes intended use, limitations, known failure modes, and
+    escalation paths.
+  status: not_started
+  owner: null
+  notes: null
+  evidence: []
+- item_id: e655ebbfecb17276
+  merge_key: CTRL-SEC-0006
+  canonical_id: CTRL-SEC-0006
+  title: Sensitive data exposure controls (PII/PHI)
+  objective: Prevent the model from disclosing sensitive data in prompts, logs, and
+    outputs.
+  severity: critical
+  category: Data protection
+  domain: security
+  pack_refs:
+  - domain: security
+    pack_id: owasp-llm-top10
+    version: '1.1'
+    control_id: LLM06
+    source:
+      name: OWASP
+      reference: OWASP Top 10 for Large Language Model Applications (v1.1)
+      url: https://owasp.org/www-project-top-10-for-large-language-model-applications/
+    pack_hash: 9024d224ff922a2ab23f16f4447c004047cb42f2c3bd3b21e387113a05305db0
+  why_applies: 'Triggered by: data.pii == True (resolved True == True)'
+  evidence_required:
+  - type: policy
+    name: Data handling & logging policy for LLM apps
+  - type: config
+    name: Redaction/filters configuration
+  test_procedures:
+  - Verify PII/PHI redaction in prompts, outputs, and logs.
+  - Validate access controls for traces and conversation logs.
+  status: not_started
+  owner: null
+  notes: null
+  evidence: []
+counts:
+  total: 2
+  by_domain:
+    safety: 1
+    security: 1
+  by_status:
+    not_started: 2

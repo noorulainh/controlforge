@@ -9,25 +9,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <div style={{background:"#0b1220", color:"white"}}>
-          <div className="container" style={{paddingTop:18, paddingBottom:18}}>
-            <div className="hstack" style={{justifyContent:"space-between"}}>
-              <div>
-                <div style={{fontWeight:800, fontSize:18}}>TrustStack AI Assurance Hub</div>
-                <div className="small" style={{color:"#cbd5e1"}}>AI GRC Workbench · Config-driven packs → controls → evidence → audit-ready.</div>
-              </div>
-              <div className="hstack">
-                <a className="btn" href="/" style={{background:"transparent", color:"white", borderColor:"#334155"}}>Home</a>
-                <a className="btn" href="/new" style={{background:"white", color:"#0b1220"}}>New Project</a>
-              </div>
+        <header>
+          <div className="container nav-row">
+            <div>
+              <a className="brand-title" href="/">TrustStack AI Assurance Hub</a>
+              <div className="brand-subtitle">AI GRC Workbench · Config-driven packs → controls → evidence → audit-ready.</div>
             </div>
+            <nav aria-label="Primary navigation">
+              <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/getting-started">Getting Started</a></li>
+                <li><a className="btn btn-primary nav-cta" href="/new">New Project</a></li>
+              </ul>
+            </nav>
           </div>
-        </div>
+        </header>
         {children}
-        <div className="container small" style={{paddingBottom:32}}>
-          <hr />
-          <div>© {new Date().getFullYear()} TrustStack AI GRC (scaffold). Not legal advice.</div>
-        </div>
+        <footer>
+          <div className="container footer-row">
+            <div>© {new Date().getFullYear()} TrustStack AI GRC (scaffold). Not legal advice.</div>
+          </div>
+        </footer>
       </body>
     </html>
   );

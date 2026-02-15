@@ -24,6 +24,10 @@ class CreateProjectRequest(BaseModel):
     scope_answers: dict[str, Any] = Field(default_factory=dict)
     selected_packs: list[SelectedPack]
 
+class PatchProjectRequest(BaseModel):
+    name: str | None = None
+    description: str | None = None
+
 @router.get("")
 def list_projects():
     storage = FileSystemStorage.from_env()
@@ -51,6 +55,34 @@ def create_project(req: CreateProjectRequest, x_user: str | None = Header(defaul
     service = ProjectService(storage=storage)
     created = service.create_project(req.model_dump(), actor=x_user or "anonymous")
     return created
+
+@router.patch("/{project_id}")
+def patch_project(project_id: str, req: PatchProjectRequest, x_user: str | None = Header(default=None)):
+    storage = FileSystemStorage.from_env()
+    service = ProjectService(storage=storage)
+    patch = req.model_dump(exclude_unset=True)
+    if not patch:
+        raise HTTPException(status_code=400, detail="No fields provided to update")
+    if "name" in patch:
+        name = (patch.get("name") or "").strip()
+        if not name:
+            raise HTTPException(status_code=400, detail="Project name cannot be empty")
+        patch["name"] = name
+    if "description" in patch and isinstance(patch["description"], str):
+        patch["description"] = patch["description"].strip() or None
+    updated = service.update_project(project_id, patch, actor=x_user or "anonymous")
+    if not updated:
+        raise HTTPException(status_code=404, detail="Project not found")
+    return updated
+
+@router.delete("/{project_id}")
+def delete_project(project_id: str, x_user: str | None = Header(default=None)):
+    storage = FileSystemStorage.from_env()
+    service = ProjectService(storage=storage)
+    deleted = service.delete_project(project_id, actor=x_user or "anonymous")
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Project not found")
+    return deleted
 
 class PatchChecklistItemRequest(BaseModel):
     status: str | None = Field(default=None, description="not_started|in_progress|implemented|not_applicable|risk_accepted")
